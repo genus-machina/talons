@@ -57,7 +57,7 @@ def local_timezone():
 
 
 def next(time, minimum=timedelta(hours=1)):
-    now = datetime.now(timezone.utc)
+    now = datetime.now(time.tzinfo)
     if (now + minimum).timetz() < time:
         return datetime.combine(now.date(), time)
     else:

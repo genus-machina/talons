@@ -64,6 +64,16 @@ class TimersTest(TestCase):
         )
         self.assertEqual(next, expected)
 
+    @freeze_time("2018-07-26 01:00:00")
+    def test_next_timezones(self):
+        local = timezone(timedelta(hours=-4))
+        next = timers.next(time(22, 30, 00, tzinfo=local))
+        expected = datetime(
+            2018, 7, 25, 22, 30, 00,
+            tzinfo=local
+        )
+        self.assertEqual(next, expected)
+
     def test_local_timezone(self):
         delta = datetime.now() - datetime.utcnow()
         minutes = round(delta.total_seconds() / 60)
